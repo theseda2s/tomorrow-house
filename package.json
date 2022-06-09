@@ -21,5 +21,8 @@
   "homepage": "https://github.com/theseda2s/tomorrow-house#readme",
   "dependencies": {
     "node-sass": "^7.0.1"
+  },
+  "devDependencies": {
+    "sass-lint": "^1.13.1"
   }
 }
