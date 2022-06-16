@@ -13,19 +13,19 @@ $flex-map: (
 
 @mixin flexbox($jc: center, $ai: center) {
   display: flex;
-  align-items: $ai;
-  justify-content: $jc;
+  align-items: _get-flex-value($ai);
+  justify-content: _get-flex-value($jc);
 }
 
 @mixin inline-flexbox($jc: center, $ai: center) {
   display: inline-flex;
-  align-items: $ai;
-  justify-content: $jc;
+  align-items: _get-flex-value($ai);
+  justify-content: _get-flex-value($jc);
 }
 
 @mixin column-flexbox($jc: center, $ai: center) {
   display: flex;
-  align-items: $ai;
+  align-items: _get-flex-value($ai);
   flex-direction: column;
-  justify-content: $jc;
+  justify-content: _get-flex-value($jc);
 }
