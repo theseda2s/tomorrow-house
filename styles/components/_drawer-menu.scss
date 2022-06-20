@@ -16,39 +16,35 @@
   }
 
   &.is-open {
-    .is-community {
+    &.is-community {
       .drawer-menu-content {
         max-height: _calculate-max-content-height($community-length);
       }
     }
-  }
 
-  &.is-open {
-    .is-store {
+    &.is-store {
       .drawer-menu-content {
         max-height: _calculate-max-content-height($store-length);
       }
     }
-  }
 
-  &.is-open {
     .is-expert {
       .drawer-menu-content {
         max-height: _calculate-max-content-height($expert-length);
       }
     }
-  }
 
-  .drawer-menu-button i:last-child {
-    transform: translateY(-50%) rotate(180deg);
-  }
+    .drawer-menu-button i:last-child {
+      transform: translateY(-50%) rotate(180deg);
+    }
 
-  .drawer-menu-content {
-    max-height: 300px;
-  }
+    .drawer-menu-content {
+      max-height: 188px;
+    }
 
-  .drawer-menu-list {
-    padding-bottom: $drawer-menu-list-padding;
+    .drawer-menu-list {
+      padding-bottom: $drawer-menu-list-padding;
+    }
   }
 
   &-button {
