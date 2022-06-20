@@ -50,61 +50,61 @@
   .drawer-menu-list {
     padding-bottom: $drawer-menu-list-padding;
   }
-}
 
-&-button {
-  @include flexbox(start);
-  @include text-style(18, $primary);
-  position: relative;
-  width: 100%;
-  height: 54px;
-  padding: 0 8px;
-  font-weight: 700;
-  transition: color 200ms ease-in-out;
-
-  i {
-    position: relative; // TODO: Check
-    top: 1px; // TODO: Check
-    color: $primary;
-
-    &:first-child {
-      margin-right: 8px;
-      font-size: 24px;
-    }
-
-    &:last-child {
-      @include pos-center-y;
-      right: 8px;
-      font-size: 16px;
-      transition: transform 200ms ease-in-out;
-    }
-  }
-}
-
-&-content {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 200ms ease-in-out;
-}
-
-&-item {
-  &.is-active {
-    a {
-      color: $blue;
-    }
-  }
-
-  a {
+  &-button {
     @include flexbox(start);
-    @include text-style(14, $primary);
+    @include text-style(18, $primary);
+    position: relative;
     width: 100%;
-    height: $drawer-menu-item-height;
-    padding: 0 12px;
+    height: 54px;
+    padding: 0 8px;
     font-weight: 700;
+    transition: color 200ms ease-in-out;
+
+    i {
+      position: relative; // TODO: Check
+      top: 1px; // TODO: Check
+      color: $primary;
+
+      &:first-child {
+        margin-right: 8px;
+        font-size: 24px;
+      }
+
+      &:last-child {
+        @include pos-center-y;
+        right: 8px;
+        font-size: 16px;
+        transition: transform 200ms ease-in-out;
+      }
+    }
   }
 
-  .ic-new {
-    font-size: 16px;
-    color: $red;
+  &-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 200ms ease-in-out;
+  }
+
+  &-item {
+    &.is-active {
+      a {
+        color: $blue;
+      }
+    }
+
+    a {
+      @include flexbox(start);
+      @include text-style(14, $primary);
+      width: 100%;
+      height: $drawer-menu-item-height;
+      padding: 0 12px;
+      font-weight: 700;
+    }
+
+    .ic-new {
+      font-size: 16px;
+      color: $red;
+    }
   }
 }
