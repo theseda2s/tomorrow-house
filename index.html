@@ -472,6 +472,51 @@
                 <strong class="tag-gray">무료배송</strong>
               </div>
             </section>
+
+            <form class="order-form lg-only" action="/" method="POST">
+              <div class="order-inputs">
+                <div class="select-group is-active">
+                  <select class="form-select" id="select-1" required>
+                    <option value="">선택</option>
+                    <option value="1">그린 H0044 (37,900원)</option>
+                    <option value="2">화이트 H0037 (37,900원</option>
+                  </select>
+                  <i class="ic-caret" aria-hidden></i>
+                </div>
+
+                <div class="select-group">
+                  <select class="form-select" id="select-2">
+                    <option value="">추가상품 (선택)</option>
+                    <option value="1">
+                      추가상품 - 맛있는 제주 감귤을 직배송 / 제주도 귤 판매 1위
+                      믿고 구매하세요. (40,000원)
+                    </option>
+                  </select>
+                  <i class="ic-caret" aria-hidden></i>
+                </div>
+              </div>
+
+              <dl class="order-summary">
+                <dd>주문금액</dd>
+                <dt>
+                  <output for="select-1 select-2">
+                    <div class="price-20">
+                      <strong class="amount">0</strong>
+                      <span class="currency">원</span>
+                    </div>
+                  </output>
+                </dt>
+              </dl>
+
+              <div class="button-group">
+                <button class="btn-outlined btn-55" type="button">
+                  장바구니
+                </button>
+                <button class="btn-primary btn-55" type="submit">
+                  바로구매
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
