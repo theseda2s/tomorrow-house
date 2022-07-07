@@ -3,15 +3,13 @@
   top: $gnb-height-sm + $lnb-height-sm;
   z-index: $product-tab-level;
   width: 100%;
-  height: 40px;
+  height: $product-tab-height-sm;
   background-color: $white;
   border-bottom: 1px solid $border;
 
   &-list {
     @include flexbox(start);
-    height: 40px;
     margin: 0 -#{$grid-margin};
-    white-space: nowrap;
   }
 
   &-item {
@@ -43,13 +41,12 @@
 
   @include responsive(T) {
     top: $gnb-height-md + $lnb-height-md;
-    height: 54px;
+    height: $product-tab-height-md;
     margin: 40px 0;
     background-color: $background;
     border-bottom: 0;
 
     &-list {
-      height: 54px;
       margin: 0;
     }
 
