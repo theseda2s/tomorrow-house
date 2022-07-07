@@ -1,6 +1,13 @@
 .floating-order-form {
+  $global-header-height: $gnb-height-md + $lnb-height-md +
+    $product-tab-height-md;
+
   @include column-flexbox(start, start);
-  height: 700px; // TEMP
+  position: sticky;
+  top: $global-header-height;
+  max-height: calc(100vh - #{$global-header-height});
+  min-height: calc(100vh - #{$global-header-height + $global-footer-height});
+  padding: 24px 0;
 
   > * {
     width: 100%;
