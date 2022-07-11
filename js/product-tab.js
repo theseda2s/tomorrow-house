@@ -1,8 +1,8 @@
 const productTab = document.querySelector('.product-tab')
 const productTabButtonList = productTab.querySelectorAll('button')
 
-const TOP_HEADER_DESKTOP = 80 + 50 + 54
-const TOP_HEADER_MOBILE = 50 + 40 + 40
+const TOP_HEADER_DESKTOP = 80 + 50 + 54 + 80
+const TOP_HEADER_MOBILE = 50 + 40 + 40 + 8
 
 let currentActiveTab = productTab.querySelector('.is-active')
 
@@ -33,8 +33,6 @@ productTabButtonList.forEach((button) => {
   button.addEventListener('click', scrollToTabPanel)
 })
 
-// 사전 정보: 각 탭 패널의 y축 위치 (문서의 시작점에서부터 얼마나 아래에 있는지)
-// 요소의 y축 위치 = window.scrollY + element.getBoundingClientRect().top
 const productTabPanelIdList = [
   'product-spec',
   'product-review',
@@ -56,5 +54,35 @@ function detectTabPanelPosition() {
   })
 }
 
+function updateActiveTabOnScroll() {
+  const scrolledAmount =
+    window.scrollY +
+    (window.innerWidth >= 768 ? TOP_HEADER_DESKTOP : TOP_HEADER_MOBILE)
+
+  let newAcitveTab
+  if (scrolledAmount >= productTabPanelPositionMap['product-recommendation']) {
+    newAcitveTab = productTabButtonList[4]
+  } else if (scrolledAmount >= productTabPanelPositionMap['product-shipment']) {
+    newAcitveTab = productTabButtonList[3]
+  } else if (scrolledAmount >= productTabPanelPositionMap['product-inquiry']) {
+    newAcitveTab = productTabButtonList[2]
+  } else if (scrolledAmount >= productTabPanelPositionMap['product-review']) {
+    newAcitveTab = productTabButtonList[1]
+  } else {
+    newAcitveTab = productTabButtonList[0]
+  }
+
+  if (newAcitveTab) {
+    newAcitveTab = newAcitveTab.parentNode
+
+    if (newAcitveTab !== currentActiveTab) {
+      newAcitveTab.classList.add('is-active')
+      currentActiveTab.classList.remove('is-active')
+      currentActiveTab = newAcitveTab
+    }
+  }
+}
+
 window.addEventListener('load', detectTabPanelPosition)
 window.addEventListener('resize', detectTabPanelPosition)
+window.addEventListener('scroll', updateActiveTabOnScroll)
