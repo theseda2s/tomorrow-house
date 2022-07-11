@@ -5,14 +5,22 @@ const TOP_HEADER_DESKTOP = 80 + 50 + 54 + 80
 const TOP_HEADER_MOBILE = 50 + 40 + 40 + 8
 
 let currentActiveTab = productTab.querySelector('.is-active')
+let disabledUpdating = false
 
 function toggleActiveTab() {
   const tabItem = this.parentNode
 
   if (currentActiveTab !== tabItem) {
+    disabledUpdating = true
     tabItem.classList.add('is-active')
-    currentActiveTab.classList.remove('is-active')
+    if (currentActiveTab !== null) {
+      currentActiveTab.classList.remove('is-active')
+    }
     currentActiveTab = tabItem
+
+    setTimeout(() => {
+      disabledUpdating = false
+    }, 1000)
   }
 }
 
@@ -52,33 +60,48 @@ function detectTabPanelPosition() {
     const position = window.scrollY + panel.getBoundingClientRect().top
     productTabPanelPositionMap[id] = position
   })
+
+  updateActiveTabOnScroll()
 }
 
 function updateActiveTabOnScroll() {
+  if (disabledUpdating) {
+    return
+  }
+
   const scrolledAmount =
     window.scrollY +
     (window.innerWidth >= 768 ? TOP_HEADER_DESKTOP : TOP_HEADER_MOBILE)
 
-  let newAcitveTab
+  let newActiveTab
   if (scrolledAmount >= productTabPanelPositionMap['product-recommendation']) {
-    newAcitveTab = productTabButtonList[4]
+    newActiveTab = productTabButtonList[4]
   } else if (scrolledAmount >= productTabPanelPositionMap['product-shipment']) {
-    newAcitveTab = productTabButtonList[3]
+    newActiveTab = productTabButtonList[3]
   } else if (scrolledAmount >= productTabPanelPositionMap['product-inquiry']) {
-    newAcitveTab = productTabButtonList[2]
+    newActiveTab = productTabButtonList[2]
   } else if (scrolledAmount >= productTabPanelPositionMap['product-review']) {
-    newAcitveTab = productTabButtonList[1]
+    newActiveTab = productTabButtonList[1]
   } else {
-    newAcitveTab = productTabButtonList[0]
+    newActiveTab = productTabButtonList[0]
   }
 
-  if (newAcitveTab) {
-    newAcitveTab = newAcitveTab.parentNode
+  const bodyHeight =
+    document.body.offsetHeight + (window.innerWidth < 1200 ? 56 : 0)
 
-    if (newAcitveTab !== currentActiveTab) {
-      newAcitveTab.classList.add('is-active')
-      currentActiveTab.classList.remove('is-active')
-      currentActiveTab = newAcitveTab
+  if (window.scrollY + window.innerHeight === bodyHeight) {
+    newActiveTab = productTabButtonList[4]
+  }
+
+  if (newActiveTab) {
+    newActiveTab = newActiveTab.parentNode
+
+    if (newActiveTab !== currentActiveTab) {
+      newActiveTab.classList.add('is-active')
+      if (currentActiveTab !== null) {
+        currentActiveTab.classList.remove('is-active')
+      }
+      currentActiveTab = newActiveTab
     }
   }
 }
