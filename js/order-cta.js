@@ -5,7 +5,6 @@ const orderModal = document.querySelector('.order-form-modal')
 const orderOverlay = document.querySelector('.overlay')
 
 const bookmarkToast = document.querySelector('.bookmark-toast')
-const bookmarkToastCloseButton = bookmarkToast.querySelector('.close-button')
 
 function openOrderModal() {
   orderModal.classList.add('is-open')
@@ -24,21 +23,25 @@ orderOverlay.addEventListener('click', closeOrderModal)
 function toggleOrderCtaBookmark() {
   const [icon, countSpan] = this.children
   const count = Number(countSpan.innerHTML.replaceAll(',', ''))
-  const [toastTitle, closeToastButton, toastButtonGroup] =
-    bookmarkToast.children
 
   let newCount = count
+
+  const closeToastButton = bookmarkToast.querySelector('.close-button')
+  const [toastTitle, , toastButtonGroup] = bookmarkToast.children
   if (this.classList.contains('is-active')) {
     icon.classList.add('ic-bookmark')
     icon.classList.remove('ic-bookmark-filled')
     newCount = newCount - 1
 
     toastTitle.innerHTML = '스크랩북에서 삭제했습니다'
-    bookmarkToast.removeChild(toastButtonGroup)
+    toastButtonGroup.style.display = 'none'
   } else {
     icon.classList.add('ic-bookmark-filled')
     icon.classList.remove('ic-bookmark')
     newCount = newCount + 1
+
+    toastTitle.innerHTML = '스크랩북했습니다'
+    toastButtonGroup.style.display = 'flex'
   }
   countSpan.innerHTML = newCount.toLocaleString()
   countSpan.setAttribute('aria-label', `북마크 ${newCount.toLocaleString()}회`)
