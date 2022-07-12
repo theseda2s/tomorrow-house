@@ -3,7 +3,6 @@ const productSpecOpenButton = productSpec.querySelector('button')
 const sectionHeaderIconButtonList = document.querySelectorAll(
   '.product-section-header button.icon-button'
 )
-console.log(sectionHeaderIconButtonList)
 
 function showFullProductSpec() {
   productSpec.classList.add('is-open')
