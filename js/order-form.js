@@ -1,10 +1,38 @@
 const formSelectList = orderModal.querySelectorAll('.form-select')
 const checkoutList = orderModal.querySelector('.checkout-list')
 
+const orderSummaryAmount = orderModal.querySelector('.order-summary .amount')
+
+function showOrderSummaryAmount() {
+  const checkoutAmountList = checkoutList.querySelectorAll(
+    '.checkout-output .amount'
+  )
+  if (checkoutAmountList.length === 0) {
+    orderSummaryAmount.innerHTML = 0
+  } else {
+    const amountList = []
+    checkoutAmountList.forEach((item) => {
+      item = Number(item.textContent.replaceAll(',', ''))
+      amountList.push(item)
+    })
+    const newOrderSummaryAmount = amountList.reduce((acc, cur) => acc + cur)
+    orderSummaryAmount.innerHTML = newOrderSummaryAmount.toLocaleString()
+  }
+}
+
+function calculateItemAmount(checkoutSelect, checkoutItem, itemAmount) {
+  const checkoutSelectOption =
+    checkoutSelect.options[checkoutSelect.selectedIndex].value
+  const checkoutAmount = checkoutItem.querySelector('.amount')
+  const newPrice = itemAmount.replaceAll(',', '') * checkoutSelectOption
+  checkoutAmount.innerHTML = newPrice.toLocaleString()
+  showOrderSummaryAmount()
+}
+
 function addCheckoutItem(e) {
   const selectOption = this.options[this.selectedIndex].text
-  const [item, price] = selectOption.split('(', 2)
-  const itemPrice = price.slice(0, -2)
+  const [item, amount] = selectOption.split('(', 2)
+  const itemAmount = amount.slice(0, -2)
 
   const checkoutItem = document.createElement('li')
   checkoutItem.setAttribute('class', 'checkout-item')
@@ -37,7 +65,7 @@ function addCheckoutItem(e) {
                                   class="checkout-output"
                                   for="order-form-modal-checkout-item-1">
                                   <div class="price-16">
-                                    <strong class="amount">${itemPrice}</strong>
+                                    <strong class="amount">${itemAmount}</strong>
                                     <span class="currency">원</span>
                                   </div>
                                 </output>
@@ -47,23 +75,17 @@ function addCheckoutItem(e) {
   checkoutList.prepend(checkoutItem)
   e.target.value = ''
 
-  const checkoutDeleteButton = checkoutItem.querySelector('.delete-button')
-  checkoutDeleteButton.addEventListener('click', deleteCheckoutItem)
+  showOrderSummaryAmount()
 
   const checkoutSelect = checkoutItem.querySelector(
     '#order-form-modal-checkout-item-1'
   )
+  checkoutSelect.addEventListener('change', () =>
+    calculateItemAmount(checkoutSelect, checkoutItem, itemAmount)
+  )
 
-  function calculateItemPrice() {
-    const checkoutSelectOption =
-      checkoutSelect.options[checkoutSelect.selectedIndex].value
-    const checkoutAmount = checkoutItem.querySelector('.amount')
-    const newPrice = (
-      itemPrice.replaceAll(',', '') * checkoutSelectOption
-    ).toLocaleString()
-    checkoutAmount.innerHTML = newPrice
-  }
-  checkoutSelect.addEventListener('change', calculateItemPrice)
+  const checkoutDeleteButton = checkoutItem.querySelector('.delete-button')
+  checkoutDeleteButton.addEventListener('click', deleteCheckoutItem)
 }
 
 formSelectList.forEach((select) => {
@@ -73,4 +95,5 @@ formSelectList.forEach((select) => {
 function deleteCheckoutItem(e) {
   const deleteItem = e.target.parentNode.parentNode.parentNode.parentNode
   checkoutList.removeChild(deleteItem)
+  showOrderSummaryAmount()
 }
