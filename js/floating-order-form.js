@@ -1,7 +1,7 @@
 const floatingOrderFormButtonGroup = document.querySelector(
   '.floating-order-form .button-group'
 )
-const [floatingBookmarkButton, floatingBasketButton, floatingBuyButton] =
+const [floatingBookmarkButton, , floatingBuyButton] =
   floatingOrderFormButtonGroup.children
 
 function toggleFloatingOrderFormBookmark() {
